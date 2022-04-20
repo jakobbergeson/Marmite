@@ -19,6 +19,15 @@ export const getStaticPaths = async () => {
     };
   });
 
+  if (!items.length) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    };
+  }
+
   return {
     paths,
     fallback: true
@@ -43,6 +52,7 @@ export async function getStaticProps({ params }) {
 export default function RecipeDetails({ recipe }) {
 
   if (!recipe) return <Skeleton />;
+
   const { featuredImage, title, cookingTime, ingredients, method } = recipe.fields;
 
   return (
